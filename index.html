@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Controle de Frios</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div id="menu" class="pagina">
+
+<h1>Controle de Frios</h1>
+
+<div class="menu">
+
+<button onclick="abrirPagina('freezer')">Freezer</button>
+<button onclick="abrirPagina('estoque')">Estoque</button>
+<button onclick="abrirPagina('gerenciar')">Gerenciar</button>
+<button id="configButton" onclick="abrirPagina('config')"></button>
+
+</div>
+
+</div>
+
+
+<div id="estoque" class="pagina">
+
+<button onclick="abrirPagina('menu')">← Voltar</button>
+
+<h2>Estoque</h2>
+
+<button onclick="abrirGerenciarEstoque()">Gerenciar produto</button>
+
+<div id="areaGerenciarEstoque" style="display:none">
+
+<input id="buscarEstoqueEditar" placeholder="Pesquisar produto" oninput="buscarProdutoEditarEstoque()">
+
+<div id="sugestoesEditarEstoque"></div>
+
+<select id="datasEditarEstoque"></select>
+
+<div id="quantidadeAtualEstoque"></div>
+
+<input id="novaQuantidadeEstoque" type="number" placeholder="Nova quantidade">
+
+<button onclick="editarEstoque()">Confirmar edição</button>
+
+<input id="quantidadeRemoverEstoque" type="number" placeholder="Quantidade para remover">
+
+<button onclick="removerEstoque()">Remover</button>
+
+</div>
+
+<div id="listaEstoque"></div>
+
+</div>
+
+
+<div id="freezer" class="pagina">
+
+    <button onclick="abrirPagina('menu')">← Voltar</button>
+    
+    <h2>Freezer</h2>
+
+    <div id="filtrosFreezer">
+        <button onclick="mostrarFreezer('ALL')">Todos</button>
+        <button onclick="mostrarFreezer('A')">A</button>
+        <button onclick="mostrarFreezer('B')">B</button>
+        <button onclick="mostrarFreezer('C')">C</button>
+        <button onclick="mostrarFreezer('D')">D</button>
+        <button onclick="mostrarFreezer('E')">E</button>
+        <button onclick="mostrarFreezer('F')">F</button>
+        <button onclick="mostrarFreezer('G')">G</button>
+        <button onclick="mostrarFreezer('H')">H</button>
+        <button onclick="mostrarFreezer('I')">I</button>
+        <button onclick="mostrarFreezer('J')">J</button>
+    </div>
+    
+    <button onclick="abrirRemover()">Remover produto</button>
+    
+    <div id="areaRemover" style="display:none">
+    
+    <input id="buscarRemover" placeholder="Pesquisar produto" oninput="buscarProdutoRemover()">
+    
+    <div id="sugestoesRemover"></div>
+    
+    <select id="datasRemover"></select>
+    
+    <div id="quantidadeAtual"></div>
+    
+    <input id="quantidadeRemover" type="number" placeholder="Quantidade a remover">
+    
+    <button onclick="confirmarRemocao()">Confirmar remoção</button>
+    
+    </div>
+    
+    <div id="listaFreezer"></div>
+    
+    </div>
+
+
+<div id="gerenciar" class="pagina">
+
+<button onclick="abrirPagina('menu')">← Voltar</button>
+
+<h2>Gerenciar</h2>
+
+
+<h3>Adicionar estoque</h3>
+
+<input id="nomeProduto" placeholder="Nome do produto" oninput="buscarProdutoEstoque()">
+
+<div id="sugestoesEstoque"></div>
+
+<input id="quantidadeProduto" type="number" placeholder="Quantidade">
+
+<input id="validadeProduto" type="date">
+
+<button onclick="adicionarEstoque()">Adicionar</button>
+
+
+<h3>Enviar ao freezer</h3>
+
+<input id="nomeMover" placeholder="Nome do produto" oninput="buscarProdutoFreezer()">
+
+<div id="sugestoesFreezer"></div>
+
+<div id="infoProduto"></div>
+
+<input id="quantidadeMover" type="number" placeholder="Quantidade">
+
+<select id="datasProduto"></select>
+
+<select id="freezerLetra">
+
+<option>A</option>
+<option>B</option>
+<option>C</option>
+<option>D</option>
+<option>E</option>
+<option>F</option>
+<option>G</option>
+<option>H</option>
+<option>I</option>
+<option>J</option>
+
+</select>
+
+<button onclick="moverParaFreezer()">Enviar</button>
+
+</div>
+
+<div id="config" class="pagina">
+    <button onclick="abrirPagina('menu')">Voltar</button>
+    <button id="importarjson" onclick="importarBancoJSON()"></button>
+    <p id="configTextImport">Importar JSON</p>
+
+    <button id="exportarjson" onclick="exportarBancoDeDadosJSON()"></button>
+    <p id="configTextExport">Exportar JSON</p>
+</div>
+
+<script src="script.js"></script>
+<script src="backup.js"></script>
+
+</body>
+</html>
