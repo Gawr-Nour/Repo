@@ -1,172 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Controle de Frios</title>
-
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controle de Estoque</title>
+  <link rel="stylesheet" href="src/styles/style.css">
 </head>
-
 <body>
 
-<div id="menu" class="pagina">
-
-<h1>Controle de Frios</h1>
-
-<div class="menu">
-
-<button onclick="abrirPagina('freezer')">Freezer</button>
-<button onclick="abrirPagina('estoque')">Estoque</button>
-<button onclick="abrirPagina('gerenciar')">Gerenciar</button>
-<button id="configButton" onclick="abrirPagina('config')"></button>
-
-</div>
-
-</div>
-
-
-<div id="estoque" class="pagina">
-
-<button onclick="abrirPagina('menu')">← Voltar</button>
-
-<h2>Estoque</h2>
-
-<button onclick="abrirGerenciarEstoque()">Gerenciar produto</button>
-
-<div id="areaGerenciarEstoque" style="display:none">
-
-<input id="buscarEstoqueEditar" placeholder="Pesquisar produto" oninput="buscarProdutoEditarEstoque()">
-
-<div id="sugestoesEditarEstoque"></div>
-
-<select id="datasEditarEstoque"></select>
-
-<div id="quantidadeAtualEstoque"></div>
-
-<input id="novaQuantidadeEstoque" type="number" placeholder="Nova quantidade">
-
-<button onclick="editarEstoque()">Confirmar edição</button>
-
-<input id="quantidadeRemoverEstoque" type="number" placeholder="Quantidade para remover">
-
-<button onclick="removerEstoque()">Remover</button>
-
-</div>
-
-<div id="listaEstoque"></div>
-
-</div>
-
-
-<div id="freezer" class="pagina">
-
-    <button onclick="abrirPagina('menu')">← Voltar</button>
-    
-    <h2>Freezer</h2>
-
-    <div id="filtrosFreezer">
-        <button onclick="mostrarFreezer('ALL')">Todos</button>
-        <button onclick="mostrarFreezer('A')">A</button>
-        <button onclick="mostrarFreezer('B')">B</button>
-        <button onclick="mostrarFreezer('C')">C</button>
-        <button onclick="mostrarFreezer('D')">D</button>
-        <button onclick="mostrarFreezer('E')">E</button>
-        <button onclick="mostrarFreezer('F')">F</button>
-        <button onclick="mostrarFreezer('G')">G</button>
-        <button onclick="mostrarFreezer('H')">H</button>
-        <button onclick="mostrarFreezer('I')">I</button>
-        <button onclick="mostrarFreezer('J')">J</button>
-    </div>
-    
-    <button onclick="abrirRemover()">Remover produto</button>
-    
-    <div id="areaRemover" style="display:none">
-    
-    <input id="buscarRemover" placeholder="Pesquisar produto" oninput="buscarProdutoRemover()">
-    
-    <div id="sugestoesRemover"></div>
-    
-    <select id="datasRemover"></select>
-    
-    <div id="quantidadeAtual"></div>
-    
-    <input id="quantidadeRemover" type="number" placeholder="Quantidade a remover">
-    
-    <button onclick="confirmarRemocao()">Confirmar remoção</button>
-    
-    </div>
-    
-    <div id="listaFreezer"></div>
-    
+  <!-- TELA INICIAL: PRATELEIRA -->
+  <div id="paginaPrateleira" class="pagina ativa">
+    <!-- Barra de pesquisa fixa no topo -->
+    <div class="topo-fixo">
+      <h2>📦 Prateleira</h2>
+      <input type="text" id="campoPesquisaPrateleira" placeholder="🔍 Pesquisar produto..." oninput="filtrarPrateleira()">
     </div>
 
+    <!-- Lista de produtos na prateleira -->
+    <div class="conteudo-scroll">
+      <div id="listaPrateleira" class="lista-produtos"></div>
+    </div>
 
-<div id="gerenciar" class="pagina">
-
-<button onclick="abrirPagina('menu')">← Voltar</button>
-
-<h2>Gerenciar</h2>
-
-
-<h3>Adicionar estoque</h3>
-
-<input id="nomeProduto" placeholder="Nome do produto" oninput="buscarProdutoEstoque()">
-
-<div id="sugestoesEstoque"></div>
-
-<input id="quantidadeProduto" type="number" placeholder="Quantidade">
-
-<input id="validadeProduto" type="date">
-
-<button onclick="adicionarEstoque()">Adicionar</button>
+    <!-- Botão Fixo na parte inferior -->
+    <button class="btn-rodape-fixo" onclick="abrirPagina('paginaOpcoes')">⚙️ Opções & Impressão</button>
+  </div>
 
 
-<h3>Enviar ao freezer</h3>
+  <!-- TELA DE OPÇÕES E FERRAMENTAS -->
+  <div id="paginaOpcoes" class="pagina">
+    <button class="btn-voltar" onclick="abrirPagina('paginaPrateleira')">← Voltar para Prateleira</button>
+    
+    <h2>Painel de Controle</h2>
 
-<input id="nomeMover" placeholder="Nome do produto" oninput="buscarProdutoFreezer()">
+    <!-- Seção Gerenciar -->
+    <div class="card-gerenciar">
+      <h3>🛠️ Gerenciar Estoque</h3>
+      <div class="botoes-gerenciar-abas">
+        <button id="btnAbaAdd" class="btn-aba ativa" onclick="mudarAbaGerenciar('add')">Adicionar</button>
+        <button id="btnAbaRem" class="btn-aba" onclick="mudarAbaGerenciar('rem')">Remover</button>
+      </div>
 
-<div id="sugestoesFreezer"></div>
+      <!-- Formulário Adicionar -->
+      <div id="formAdicionar" class="form-gerenciar">
+        <label>Nome do Produto:</label>
+        <input type="text" id="nomeAdicionar" placeholder="Digite o nome do produto..." oninput="sugerirNomeAdicionar()">
+        <div id="sugestoesAdicionar" class="caixa-sugestoes"></div>
 
-<div id="infoProduto"></div>
+        <label>Data de Validade:</label>
+        <input type="date" id="validadeAdicionar">
 
-<input id="quantidadeMover" type="number" placeholder="Quantidade">
+        <button class="btn-acao btn-sucesso" onclick="adicionarProduto()">+ Adicionar à Prateleira</button>
+      </div>
 
-<select id="datasProduto"></select>
+      <!-- Formulário Remover -->
+      <div id="formRemover" class="form-gerenciar" style="display: none;">
+        <label>Nome do Produto:</label>
+        <input type="text" id="nomeRemover" placeholder="Digite o nome para buscar..." oninput="sugerirNomeRemover()">
+        <div id="sugestoesRemover" class="caixa-sugestoes"></div>
 
-<select id="freezerLetra">
+        <label>Data para Remover:</label>
+        <select id="selectDataRemover" disabled>
+          <option value="">Informe o produto primeiro...</option>
+        </select>
 
-<option>A</option>
-<option>B</option>
-<option>C</option>
-<option>D</option>
-<option>E</option>
-<option>F</option>
-<option>G</option>
-<option>H</option>
-<option>I</option>
-<option>J</option>
+        <button class="btn-acao btn-perigo" onclick="removerProduto()">🗑️ Confirmar Remoção</button>
+      </div>
+    </div>
 
-</select>
+    <!-- Ações de Impressão e Backup -->
+    <div class="painel-botoes-duplo">
+      <button class="btn-opcao" onclick="abrirRelatorioA4()">🖨️ Imprimir Relatório (30 dias)</button>
+      <button class="btn-opcao" onclick="abrirModalBackup()">📁 Backup (Importar / Exportar)</button>
+    </div>
+  </div>
 
-<button onclick="moverParaFreezer()">Enviar</button>
 
-</div>
+  <!-- TELA DE RELATÓRIO A4 -->
+  <div id="paginaRelatorio" class="pagina">
+    <div class="cabecalho-relatorio-acoes no-print">
+      <button class="btn-voltar" onclick="abrirPagina('paginaOpcoes')">← Voltar</button>
+      <!-- Botão pequeno no canto superior direito para imprimir/salvar PDF -->
+      <button id="btnImprimirPdf" class="btn-icone-imprimir" title="Imprimir / Salvar PDF" onclick="window.print()">
+        🖨️ PDF
+      </button>
+    </div>
 
-<div id="config" class="pagina">
-    <button onclick="abrirPagina('menu')">Voltar</button>
-    <button id="importarjson" onclick="importarBancoJSON()"></button>
-    <p id="configTextImport">Importar JSON</p>
+    <!-- Container em Formato Folha A4 -->
+    <div id="folhaA4" class="folha-a4">
+      <div class="a4-header">
+        <h1>Relatório de Controle de Estoque</h1>
+        <p>Produtos com vencimento próximo e dentro do período de 30 dias</p>
+        <hr>
+      </div>
+      <div id="conteudoRelatorioA4"></div>
+    </div>
+  </div>
 
-    <button id="exportarjson" onclick="exportarBancoDeDadosJSON()"></button>
-    <p id="configTextExport">Exportar JSON</p>
-</div>
 
-<script src="script.js"></script>
-<script src="backup.js"></script>
+  <!-- MODAL POPUP BACKUP (IMPORTAR / EXPORTAR) -->
+  <div id="modalBackup" class="modal-overlay" style="display: none;">
+    <div class="modal-conteudo">
+      <h3>📁 Backup do Banco de Dados</h3>
+      <p>Escolha uma opção para gerenciar os dados do aplicativo em formato JSON:</p>
+      
+      <div class="modal-botoes">
+        <button class="btn-acao btn-sucesso" onclick="exportarBancoJSON()">📥 Exportar JSON</button>
+        <button class="btn-acao btn-alerta" onclick="importarBancoJSON()">📤 Importar JSON</button>
+      </div>
 
+      <button class="btn-fechar-modal" onclick="fecharModalBackup()">Cancelar</button>
+    </div>
+  </div>
+
+  <script src="src/script.js"></script>
+  <script src="src/backup.js"></script>
 </body>
 </html>

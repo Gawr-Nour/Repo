@@ -1,0 +1,405 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f6f8;
+  color: #333;
+}
+
+/* Gerenciamento de Páginas */
+.pagina {
+  display: none;
+  padding: 15px;
+  padding-bottom: 80px;
+}
+
+.pagina.ativa {
+  display: block;
+}
+
+/* Barra Superior Fixa na Prateleira */
+.topo-fixo {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  padding: 12px 15px;
+  border-bottom: 2px solid #e0e0e0;
+  z-index: 100;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.topo-fixo h2 {
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.topo-fixo input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* Lista da Prateleira (Balões de Produtos) */
+.lista-produtos {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-produto {
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+.card-produto-header {
+  padding: 14px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.card-produto-header:hover {
+  background-color: #f9f9f9;
+}
+
+/* Indicadores de Cor nos Balões */
+.card-produto.status-vermelho {
+  border-left: 8px solid #e74c3c;
+}
+
+.card-produto.status-amarelo {
+  border-left: 8px solid #f1c40f;
+}
+
+.card-produto.status-ok {
+  border-left: 8px solid #2ecc71;
+}
+
+.detalhes-produto {
+  display: none;
+  padding: 12px 16px;
+  background-color: #fafafa;
+  border-top: 1px solid #eee;
+}
+
+.linha-validade {
+  padding: 8px;
+  margin: 4px 0;
+  border-radius: 4px;
+  font-size: 15px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.vencendo-vermelho {
+  background-color: #ffdddd;
+  color: #900;
+  font-weight: bold;
+}
+
+.vencendo-amarelo {
+  background-color: #ffffcc;
+  color: #886600;
+  font-weight: bold;
+}
+
+.vencendo-ok {
+  background-color: #e8f8f5;
+  color: #117a65;
+}
+
+/* Botão Rodapé Fixo */
+.btn-rodape-fixo {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 55px;
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 100;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+
+.btn-voltar {
+  background-color: #7f8c8d;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+/* Card Gerenciar */
+.card-gerenciar {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.botoes-gerenciar-abas {
+  display: flex;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.btn-aba {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.btn-aba.ativa {
+  background-color: #3498db;
+  color: white;
+  border-color: #3498db;
+}
+
+.form-gerenciar label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.form-gerenciar input, .form-gerenciar select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.caixa-sugestoes {
+  background: white;
+  border: 1px solid #ddd;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.sugestao-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+.sugestao-item:hover {
+  background-color: #f0f0f0;
+}
+
+.btn-acao {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.btn-sucesso { background-color: #27ae60; }
+.btn-alerta { background-color: #f39c12; }
+.btn-perigo { background-color: #c0392b; }
+
+.painel-botoes-duplo {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-opcao {
+  flex: 1;
+  padding: 15px;
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Modal Popup Backup */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+.modal-conteudo {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-botoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.btn-fechar-modal {
+  background: #95a5a6;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Formatação de Impressão Folha A4 */
+.cabecalho-relatorio-acoes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.btn-icone-imprimir {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.folha-a4 {
+  background: white;
+  width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0,0,0,0.15);
+  box-sizing: border-border-box;
+}
+
+.a4-header h1 {
+  font-size: 22px;
+  color: #111;
+}
+
+.a4-header p {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.tabela-a4 {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.tabela-a4 th, .tabela-a4 td {
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.tabela-a4 th {
+  background-color: #f0f0f0;
+}
+
+/* Regras de Impressão */
+@media print {
+  body {
+    background: white;
+  }
+  .no-print, .btn-rodape-fixo, .topo-fixo, .btn-voltar, .cabecalho-relatorio-acoes {
+    display: none !important;
+  }
+  .folha-a4 {
+    box-shadow: none;
+    margin: 0;
+    width: 100%;
+    min-height: auto;
+    padding: 0;
+  }
+}
+
+@media (max-width: 210mm) {
+  .folha-a4 {
+    width: 100%;
+    min-height: auto;
+    padding: 15px;
+  }
+}
+/* Card de Produto com suporte à barra lateral multicolorida */
+.card-produto {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  transition: all 0.2s ease;
+}
+
+/* Indicador Lateral Multicolorido */
+.indicador-lateral {
+  width: 12px;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.conteudo-card {
+  flex: 1;
+}
+
+.card-produto-header {
+  padding: 14px 16px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+}
+
+.card-produto-header:hover {
+  background-color: #f9f9f9;
+}
